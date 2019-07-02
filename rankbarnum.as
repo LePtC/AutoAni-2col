@@ -8,5 +8,5 @@ function initialize(ni: int, cfgi: Array): void {
 	n = ni;
 	rank1.text = ni.toString();
   if(n%10!=0){this.alpha=0.25}
-
+  if(n>225){this.visible=false}
 }

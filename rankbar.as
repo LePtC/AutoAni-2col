@@ -15,6 +15,7 @@ var H: Number;
 
 var Icon: Sprite; // 头像容器
 
+var j:int;
 
 var format1: TextFormat;
 
@@ -156,7 +157,6 @@ function clearDelimeters(formattedString: String): String {
 }
 
 // 位置和柱长都采用“固定比例赶往目标值”算法
-
 function updatey(i: int, scale: Number): void {
 
   if( i<int(cfg[1][1]) || i>(int(cfg[1][1])+int(cfg[1][2])*25) ){
@@ -167,11 +167,23 @@ function updatey(i: int, scale: Number): void {
 
   if(firstcally<2){
     jiamin.initialize(-i," 名","▲","▼");
+
+    for(j = 0; j<(cfg[118]).length; j++){
+      if(id==clearDelimeters(cfg[118][j])){
+        jiamin.initialize(-int(cfg[119][j])," 名","▲","▼");
+      }
+    }
+
     firstcally++;
   }else{
     jiamin.update(-i);
   }
 
+  if(i>225){
+    jiamin.visible=false;
+  }else{
+    jiamin.visible=true;
+  }
 
 	if(cfg[53][0] == "1") { // 对数轴
 		rec.width += (Math.log(1 + fan) * scale - rec.width) / Number(cfg[8][0]);

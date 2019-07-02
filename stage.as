@@ -82,7 +82,7 @@ else{lockMax=200*Number(cfg[1][0])}
 	bord.x = current.x;
 	bord.y = current.y + 68;
 	maxT = int(cfg[1][3]);
-	bord.width = Number(cfg[78][0]) * Number(cfg[6][0]) * (maxT+4);
+	bord.width = Number(cfg[78][0]) * Number(cfg[6][0]) * (maxT-int(cfg[1][4]));
 
 	kuangmo.x = cfg[91][0];
 	kuangmo.y = cfg[92][0];
@@ -110,6 +110,8 @@ var rk: rankBar;
 var rknum: rankBarNum;
 var pofix: String; // 所加载图片的后缀
 var lockMax: Number;
+
+var numcon: Sprite = new Sprite(); // 排名数字容器
 
 function dataLoaded(evt: Event): void {
 
@@ -139,11 +141,23 @@ function dataLoaded(evt: Event): void {
 	}
 
 
+  addChild(numcon);
+  renewdataLoaded();
+
+	stage.addEventListener(Event.ENTER_FRAME, movie);
+}
+
+
+function renewdataLoaded():void{
+
+  while (numcon.numChildren > 0) {
+    numcon.removeChildAt(0);
+  }
 
   for(i = 1; i <= 25; i++) {
     rknum = new rankBarNum();
     rknum.initialize(int(cfg[1][1])+i,cfg);
-    addChild(rknum);
+    numcon.addChild(rknum);
     rknum.x=RKcon.x;
     rknum.y = i * Number(cfg[26][0]);
   }
@@ -151,16 +165,13 @@ if(int(cfg[1][1])>=25){
   for(i = 1; i <= 25; i++) {
     rknum = new rankBarNum();
     rknum.initialize(int(cfg[1][1])+25+i,cfg);
-    addChild(rknum);
+    numcon.addChild(rknum);
     rknum.x=RKcon.x+1920/2;
     rknum.y = i * Number(cfg[26][0]);
   }
 }
 
-	stage.addEventListener(Event.ENTER_FRAME, movie);
 }
-
-
 
 
 
@@ -289,7 +300,7 @@ if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
 
 	for(i = RKcon.numChildren - 1; i >= 0; i--) {
 		bar1 = RKcon.getChildAt(i) as rankBar;
-		if(T > 4 && bar1.fan < 7) { // 不可重现的消失，用于清理透明占位UP
+		if(T > 4 && bar1.fan <= 1) { // 不可重现的消失，用于清理透明占位UP
 			RKcon.removeChildAt(i);
 		}
 	}
@@ -308,7 +319,7 @@ if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
 
 
 	// 冠军条
-  var tempper:Number =t / (Number(cfg[6][0]) * (maxT+2)) * 100;
+  var tempper:Number =t / (Number(cfg[6][0]) * maxT) * 100;
   if(tempper<100.5){
     current.te.text = tempper.toFixed(0) + "%";
   	/*yeart.x += Number(cfg[78][0]);
@@ -427,6 +438,11 @@ function keyPressed(event: KeyboardEvent): void {
   }
   if(event.keyCode == Keyboard.DOWN) {
     RKcon.y+=2;
+  }
+  if(event.keyCode == Keyboard.R) {
+    t=-1;
+    loadcfg.load(new URLRequest("config.csv"));
+    renewdataLoaded();
   }
 
 }
