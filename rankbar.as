@@ -50,7 +50,7 @@ function initialize(ni: int, idi: String, cni: String, coli: Number, pofix: Stri
 	cname.setTextFormat(format1);
 
 
-	id = idi;
+  id = clearDelimeters(idi);
 	var icon: Loader = new Loader();
 	icon.contentLoaderInfo.addEventListener(Event.COMPLETE, iconLoaded);
 	icon.load(new URLRequest(id + pofix));

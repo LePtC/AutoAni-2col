@@ -34,8 +34,8 @@ function update(po: Number): void {
 
   if(diffvalue!=0 ) {
     if(this.alpha<1){
-    this.alpha += 0.1;
-  }
+      this.alpha += 0.1;
+    }
     te.text=Math.abs(diffvalue).toString()+cn;
     if(diffvalue>0){
       te.text=up+te.text;
@@ -46,6 +46,7 @@ function update(po: Number): void {
       format1.color = 0x781c86;
       te.setTextFormat(format1);
     }
+    if(diffvalue>40000){te.text="new"}
   }
 }
 

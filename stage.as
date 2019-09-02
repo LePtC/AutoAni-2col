@@ -300,7 +300,7 @@ if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
 
 	for(i = RKcon.numChildren - 1; i >= 0; i--) {
 		bar1 = RKcon.getChildAt(i) as rankBar;
-		if(T > 4 && bar1.fan <= 1) { // 不可重现的消失，用于清理透明占位UP
+		if(T > 4 && bar1.fan < 0.000001) { // 不可重现的消失，用于清理透明占位UP
 			RKcon.removeChildAt(i);
 		}
 	}

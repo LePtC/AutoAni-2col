@@ -7,6 +7,6 @@ function initialize(ni: int, cfgi: Array): void {
 	rank1.x = cfgi[22][0];
 	n = ni;
 	rank1.text = ni.toString();
-  if(n%10!=0){this.alpha=0.25}
-  if(n>225){this.visible=false}
+  if(n%10!=0 && n<= 225){this.alpha=0.25}
+  if(n>225){rank1.text="*"}
 }
