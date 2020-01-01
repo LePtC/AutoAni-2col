@@ -33,11 +33,11 @@ function cfgLoaded(evt: Event): void {
 
 
 // 智能宽度
-if(int(cfg[1][1])==0){lockMax=400*Number(cfg[1][0]);cfg[1][2]=1;cfg[91][0]=1540;cfg[97][0]=1550;}
-else if(int(cfg[1][1])==25){lockMax=440*Number(cfg[1][0])}
-else if(int(cfg[1][1])==75){lockMax=290*Number(cfg[1][0])}
-else if(int(cfg[1][1])==125){lockMax=260*Number(cfg[1][0])}
-else if(int(cfg[1][1])==175){lockMax=210*Number(cfg[1][0])}
+if(int(cfg[1][1])==0){lockMax=400*Number(cfg[1][0]);cfg[1][2]=1;}
+else if(int(cfg[1][1])==25){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=440*Number(cfg[1][0])}
+else if(int(cfg[1][1])==75){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=290*Number(cfg[1][0])}
+else if(int(cfg[1][1])==125){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=260*Number(cfg[1][0])}
+else if(int(cfg[1][1])==175){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=210*Number(cfg[1][0])}
 else{lockMax=200*Number(cfg[1][0])}
 
 
@@ -243,13 +243,17 @@ function movie(event: Event): void {
         po = da[maxT + 2][j];
       }
 
-			if(T < maxT + 1) {
-				posp = ((da[T + 1][j] - da[T][j]) * (fp - tres) + (da[T + 2][j] - da[T + 1][j]) * tres) / fp; // 一阶导线性补间
+      var F: int;
+      F = int(cfg[126][0]);
+
+			if(T < maxT +2-F) {
+				posp = ((da[T + F][j] - da[T][j]) * (fp - tres) + (da[T + F+1][j] - da[T + 1][j]) * tres) / fp; // 一阶导线性补间
 			} else {
-				posp = da[maxT + 2][j] - da[maxT + 1][j];
+				posp = da[maxT + 2][j] - da[maxT + 2-F][j];
 			}
 
-			rk.update(po, posp * 2);
+			rk.update(po, posp * 2/F);
+
       if(T >= maxT + 2) {
         rk.alpha=1;
         rk.rank1.visible=true;
@@ -300,7 +304,7 @@ if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
 
 	for(i = RKcon.numChildren - 1; i >= 0; i--) {
 		bar1 = RKcon.getChildAt(i) as rankBar;
-		if(T > 4 && bar1.fan < 0.000001) { // 不可重现的消失，用于清理透明占位UP
+		if(T > 4 && bar1.fan < -999) { // 不可重现的消失，用于清理透明占位UP
 			RKcon.removeChildAt(i);
 		}
 	}

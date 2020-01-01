@@ -110,10 +110,10 @@ var tarA: Number; // 最近有更新的目标alpha1，否则半透明
 function update(po: Number, speed: Number): void {
 
   if(firstcall<2){
-    jiafen.initialize(po/10000," 万","+","-");
+    jiafen.initialize(po/Number(cfg[123][0]),cfg[123][1],"+","-");
     firstcall++;
   }else{
-    jiafen.update(po/10000);
+    jiafen.update(po/Number(cfg[123][0]));
   }
 
 	fan = po / cfg[36][0];
@@ -145,10 +145,10 @@ function colfun(speed: Number): int {
 	if(speed <= 0) {
 		return(0)
 	}
-	if(speed >= 50000) {
+	if(speed >= Number(cfg[124][0])) {
 		return(100)
 	}
-	return(int(Math.pow(speed / 50000, 1 / 6) * 100))
+	return(int(Math.pow(speed / Number(cfg[124][0]), 1 / 6) * 100))
 }
 
 
@@ -200,12 +200,14 @@ function updatey(i: int, scale: Number): void {
 	Icon.x = rec.width;
 
 
-  jiafen.x=cvalue.x+90;
-  jiamin.x=cvalue.x+176;
-if(fan>=100){
-  jiafen.x+=20;
-  jiamin.x+=20;
-}
+  jiafen.x=cvalue.x+Number(cfg[125][0]);
+  if(fan>=10){
+    jiafen.x+=20;
+  }
+  if(fan>=100){
+    jiafen.x+=20;
+  }
+  jiamin.x=jiafen.x+86;
 
 	cname.x = rec.width - (cname.textWidth + 10) - 27;
 
