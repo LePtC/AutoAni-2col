@@ -38,6 +38,7 @@ else if(int(cfg[1][1])==25){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=440*Number
 else if(int(cfg[1][1])==75){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=290*Number(cfg[1][0])}
 else if(int(cfg[1][1])==125){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=260*Number(cfg[1][0])}
 else if(int(cfg[1][1])==175){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=210*Number(cfg[1][0])}
+else if(int(cfg[1][1])==225){cfg[91][0]=14400;cfg[97][0]=15500;lockMax=210*Number(cfg[1][0])}
 else{lockMax=200*Number(cfg[1][0])}
 
 
