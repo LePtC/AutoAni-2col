@@ -24,6 +24,8 @@ var bk: bkgL;
 
 var wid: Number;
 
+var offset = 0;
+
 function cfgLoaded(evt: Event): void {
 
 	cfg = loadcfg.data.split("\n");
@@ -93,9 +95,12 @@ else{lockMax=200*Number(cfg[1][0])}
 	RKcon.y -= Number(cfg[26][0]) * int(cfg[1][1]);
 
 
+  if(isNaN(cfg[1][6])){
+    offset = 0;
+  }else{
+    offset = int(cfg[1][6]);
+  }
 }
-
-
 
 
 
@@ -281,7 +286,7 @@ if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
 		}
 	}
 
-	bar1 = RKcon.getChildAt(RKmax) as rankBar;
+	bar1 = RKcon.getChildAt(RKmax-offset) as rankBar;
 	kuangmo.text = cfg[93][0] + bar1.cn;
 	shichang.text = cfg[94][0] + bar1.fan.toFixed(cfg[95][0]) + cfg[96][0];
 
