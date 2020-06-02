@@ -179,7 +179,7 @@ function updatey(i: int, scale: Number): void {
     jiamin.update(-i);
   }
 
-  if(i>225){
+  if(i>Number(cfg[1][5])){
     jiamin.visible=false;
   }else{
     jiamin.visible=true;
